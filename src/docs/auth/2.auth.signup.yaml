@@ -1,0 +1,92 @@
+paths:
+  /auth/signup:
+    post:
+      tags:
+        - Auth
+      summary: Signup
+      security:
+        - Bearer: []
+      requestBody:
+        description: Signup user with email and password (You can only add roles if you are logged in as Admin)
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/signupUser"
+      responses:
+        200:
+          description: Token Response from Auth0
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/successSignup"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/errorResponse"
+
+definitions:
+  signupUser:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+      name:
+        type: string
+      given_name:
+        type: string
+      family_name:
+        type: string
+      gender:
+        type: string
+      birth_date:
+        type: string
+        format: date
+      phone_number:
+        type: "string"
+      addresses:
+        type: array
+        items:
+          $ref: "#/definitions/addressSchema"
+      roles:
+        type: array
+        items:
+          type: string
+          enum:
+            - Admin
+            - Supplier
+            - Customer
+
+  addressSchema:
+    type: object
+    properties:
+      city:
+        type: string
+      state:
+        type: string
+      primary:
+        type: boolean
+      label:
+        type: string
+  successSignup:
+    type: object
+    properties:
+      accessToken:
+        type: string
+      refreshToken:
+        type: string
+      idToken:
+        type: string
+      user_id:
+        type: string
+  errorResponse:
+    type: object
+    properties:
+      message:
+        type: string

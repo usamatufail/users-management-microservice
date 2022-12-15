@@ -1,0 +1,75 @@
+paths:
+  /auth/update-user:
+    patch:
+      tags:
+        - Auth
+      summary: Update Partial data for Logged in User
+      security:
+        - Bearer: []
+      requestBody:
+        description: All fields are not required in the request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/updateUser"
+      responses:
+        200:
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/successUpdate"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/errorResponse"
+
+definitions:
+  updateUser:
+    type: object
+    properties:
+      name:
+        type: string
+      given_name:
+        type: string
+      username:
+        type: string
+      family_name:
+        type: string
+      gender:
+        type: string
+      birth_date:
+        type: string
+        format: date
+      phone_number:
+        type: "string"
+      addresses:
+        type: array
+        items:
+          $ref: "#/definitions/addressSchema"
+  addressSchema:
+    type: object
+    properties:
+      city:
+        type: string
+      state:
+        type: string
+      primary:
+        type: boolean
+      label:
+        type: string
+  successUpdate:
+    type: object
+    properties:
+      message:
+        type: string
+      updated_user:
+        type: object
+  errorResponse:
+    type: object
+    properties:
+      message:
+        type: string

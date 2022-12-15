@@ -1,0 +1,47 @@
+paths:
+  /auth/refresh:
+    post:
+      tags:
+        - Auth
+      summary: Refresh Token
+      requestBody:
+        description: Send current refresh token and get new access token if expired
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/refresh"
+      responses:
+        200:
+          description: Token Response from Auth0
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/successRefresh"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/errorResponse"
+
+definitions:
+  refresh:
+    type: object
+    properties:
+      refreshToken:
+        type: string
+  successRefresh:
+    type: object
+    properties:
+      accessToken:
+        type: string
+      refreshToken:
+        type: string
+      idToken:
+        type: string
+  errorResponse:
+    type: object
+    properties:
+      message:
+        type: string

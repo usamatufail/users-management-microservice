@@ -1,0 +1,50 @@
+paths:
+  /users/analytics-report:
+    get:
+      tags:
+        - Users
+      summary: Get All User's Analytics / Actions Report
+      parameters:
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            description: The number of items to skip before starting to collect the result set
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            description: The numbers of items to return
+        - in: query
+          name: user_id
+          schema:
+            type: string
+            description: Specify the user's id to get specific user's analytics report
+        - in: query
+          name: action_type
+          schema:
+            type: string
+            enum:
+              [
+                "auth.getProfile",
+                "auth.changePassword",
+                "auth.changeEmailAddress",
+                "auth.updateUser",
+                "auth.closeAccount",
+                "users.getProfile",
+                "users.getAnalytics",
+                "users.getAllUsers",
+                "users.updateUser",
+                "users.deleteUser",
+              ]
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: Success
+        401:
+          description: Not authenticated
+        403:
+          description: Forbidden
+        400:
+          description: Bad Request

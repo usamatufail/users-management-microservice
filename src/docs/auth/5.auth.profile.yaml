@@ -1,0 +1,15 @@
+paths:
+  /auth/profile:
+    get:
+      tags:
+        - Auth
+      summary: Get Logged In User's Profile
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: Success
+        401:
+          description: Not authenticated
+        400:
+          description: Bad Request

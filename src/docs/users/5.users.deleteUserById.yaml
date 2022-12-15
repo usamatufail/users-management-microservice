@@ -1,0 +1,42 @@
+paths:
+  /users/{id}:
+    delete:
+      tags:
+        - Users
+      summary: Delete a specific User
+      security:
+        - Bearer: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the user
+      responses:
+        200:
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/successDeletion"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/errorResponse"
+
+definitions:
+  successDeletion:
+    type: object
+    properties:
+      message:
+        type: string
+      updated_user:
+        type: object
+  errorResponse:
+    type: object
+    properties:
+      message:
+        type: string

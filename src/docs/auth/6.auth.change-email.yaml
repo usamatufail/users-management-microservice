@@ -1,0 +1,46 @@
+paths:
+  /auth/change-email:
+    patch:
+      tags:
+        - Auth
+      summary: Change Email Address of Logged In User
+      security:
+        - Bearer: []
+      requestBody:
+        description: Change Email Address of Logged In User
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/changeEmail"
+      responses:
+        200:
+          description: Email changed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/successChangeEmail"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/errorResponse"
+
+definitions:
+  changeEmail:
+    type: object
+    properties:
+      newEmail:
+        type: string
+  successChangeEmail:
+    type: object
+    properties:
+      message:
+        type: string
+        default: You can now login using your new email address {email}. Please note that you need to verify your new email otherwise your account status will remain un-verified.
+  errorResponse:
+    type: object
+    properties:
+      message:
+        type: string

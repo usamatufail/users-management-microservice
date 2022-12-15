@@ -1,0 +1,34 @@
+paths:
+  /auth/close-account:
+    patch:
+      tags:
+        - Auth
+      summary: Close the logged in user's account
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: Account closed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/accountClosed"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/errorResponse"
+
+definitions:
+  accountClosed:
+    type: object
+    properties:
+      message:
+        type: string
+        default: User's account closed successfully
+  errorResponse:
+    type: object
+    properties:
+      message:
+        type: string

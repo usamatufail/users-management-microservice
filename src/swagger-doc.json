@@ -1,0 +1,29 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Users Microservice API",
+    "version": "v1",
+    "description": "Rest API for managing users and performing actions on auth.",
+    "contact": {
+      "name": "Usama Tufail",
+      "email": "usama.tufail@toptal.com",
+      "url": "usamatufail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/v1"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": ">- Input your Bearer token in this format - Bearer {your token here} to access this API",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "paths": {}
+}

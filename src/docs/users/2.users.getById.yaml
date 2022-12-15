@@ -1,0 +1,24 @@
+paths:
+  /users/{id}:
+    get:
+      tags:
+        - Users
+      summary: Get User By ID
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the user to get
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: Success
+        401:
+          description: Not authenticated
+        403:
+          description: Forbidden
+        400:
+          description: Bad Request

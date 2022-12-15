@@ -1,0 +1,49 @@
+paths:
+  /auth:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      requestBody:
+        description: Login user with email and password
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/signinUser"
+      responses:
+        200:
+          description: Token Response from Auth0
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/successLogin"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/errorResponse"
+
+definitions:
+  signinUser:
+    type: object
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+  successLogin:
+    type: object
+    properties:
+      accessToken:
+        type: string
+      refreshToken:
+        type: string
+      idToken:
+        type: string
+  errorResponse:
+    type: object
+    properties:
+      message:
+        type: string

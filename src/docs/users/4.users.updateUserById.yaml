@@ -1,0 +1,90 @@
+paths:
+  /users/{id}:
+    patch:
+      tags:
+        - Users
+      summary: Update Partial data for a specific User
+      security:
+        - Bearer: []
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID of the user
+      requestBody:
+        description: All fields are not required in the request body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/updateUserByAdmin"
+      responses:
+        200:
+          description: User updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/successUpdateByAdmin"
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/errorResponse"
+
+definitions:
+  updateUserByAdmin:
+    type: object
+    properties:
+      name:
+        type: string
+      given_name:
+        type: string
+      username:
+        type: string
+      family_name:
+        type: string
+      gender:
+        type: string
+      birth_date:
+        type: string
+        format: date
+      phone_number:
+        type: "string"
+      roles:
+        type: array
+        items:
+          type: string
+          enum:
+            - Admin
+            - Supplier
+            - Customer
+      addresses:
+        type: array
+        items:
+          $ref: "#/definitions/addressSchema"
+  addressSchema:
+    type: object
+    properties:
+      city:
+        type: string
+      state:
+        type: string
+      primary:
+        type: boolean
+      label:
+        type: string
+  successUpdateByAdmin:
+    type: object
+    properties:
+      message:
+        type: string
+      updated_user:
+        type: object
+  errorResponse:
+    type: object
+    properties:
+      message:
+        type: string
